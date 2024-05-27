@@ -1,0 +1,9 @@
+Flask==2.1.2
+flask_cors
+openai
+python-dotenv==0.21.0
+SQLAlchemy==1.4.32
+pandas==1.4.2
+langchain
+langchain-community
+langchain-openai
