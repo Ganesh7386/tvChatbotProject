@@ -10,7 +10,7 @@ app = Flask(__name__)
 CORS(app)
 load_dotenv()
 
-openai_api_key = os.getenv('sk-proj-PJBf7HE3H0elLzfsGnE6T3BlbkFJa0WuJnJ9gk7dFpXeyhcg')  # Use a proper environment variable key
+openai_api_key = 'sk-proj-PJBf7HE3H0elLzfsGnE6T3BlbkFJa0WuJnJ9gk7dFpXeyhcg'  # Use a proper environment variable key
 if not openai_api_key:
     raise ValueError("No OpenAI API key found in environment variables")
 
@@ -21,10 +21,12 @@ chain = create_sql_query_chain(llm, db)
 @app.route('/langchain', methods=['POST'])
 def langchain():
     question = request.json.get('question')
+    customer_id = request.json.get('customer_id')
     if not question:
         return jsonify({'error': 'No question provided'}), 400
     
-    response = chain.invoke({"question": question})
+    response = chain.invoke({"question": question , "customer_id" : customer_id})
+    print(response)
     return jsonify(response)
 
 if __name__ == '__main__':
